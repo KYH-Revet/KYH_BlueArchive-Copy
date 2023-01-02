@@ -2,31 +2,7 @@ using UnityEngine;
 
 namespace _Character
 {
-    //Character
-    public struct Character_Info
-    {
-        public uint no;             //고유 번호
-        public string name;         //이름
-        public uint lv;             //레벨
-        public uint exp;            //경험치
-        
-        public Character_Stat stat;      //스탯
-
-        //Stage 
-        public string cityLv;       //시가지 전투력
-        public string outdoorLv;    //야외 전투력
-        public string insideLv;     //실내 전투력
-
-        //Types
-        public Type_Role type;
-        public Type_Positioning positioning;
-        public Type_Property property_att;
-        public Type_Property property_def;
-
-        //public uint star;           //N성
-        //public Sprite profileImg;   //2D Image
-        //public GameObject model;    //3D model
-    }
+    //Character    
     public struct Character_Stat
     {
         //Battle
@@ -41,10 +17,10 @@ namespace _Character
         public uint criticaldmg;    //치명 데미지
         public uint stabillty;      //안정 수치
         public uint nomalRange;     //일반공격 사거리 
-        //public uint ccRimforce;     //군중제어 강화력
-        //public uint ccResistance;   //군중제어 저항력
+        public uint ccRimforce;     //군중제어 강화력
+        public uint ccResistance;   //군중제어 저항력
         public uint costRecovry;    //코스트 회복력
-        public bool obscuration;    //엄폐 여부
+        //public bool obscuration;    //엄폐 여부
     }
 
     //Type Enum
