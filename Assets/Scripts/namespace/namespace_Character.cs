@@ -16,7 +16,7 @@ namespace _Character
         public uint criticalLv;     //치명 수치
         public uint criticaldmg;    //치명 데미지
         public uint stabillty;      //안정 수치
-        public uint nomalRange;     //일반공격 사거리 
+        public uint nomalRange;     //일반공격 사거리
         public uint ccRimforce;     //군중제어 강화력
         public uint ccResistance;   //군중제어 저항력
         public uint costRecovry;    //코스트 회복력

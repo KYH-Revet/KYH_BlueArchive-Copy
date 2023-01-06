@@ -1,0 +1,5 @@
+CID,NAME,CITYLV,OUTDOORLV,INSIDELV,CLASS,ROLE,POSITIONING,PROPERTY_ATT,PROPERTY_DEF
+1,이오리,A,B,C,Striker,DPS,Front,Penetrate,Explosion
+2,하루나,S,C,B,Striker,DPS,Back,Explosion,Mystery
+3,히비키,D,A,A,Striker,DPS,Middle,Mystery,Penetrate
+4,세리나,A,A,A,Special,Heal,Back,Mystery,Penetrate
