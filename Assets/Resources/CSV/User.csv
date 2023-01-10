@@ -1,4 +1,4 @@
-UID,NICKNAME,ACCOUNTLV
-0,Teacher1,15
-1,Teacher2,16
-2,Teacher3,17
+ID,PASSWORD,UID,NICKNAME,ACCOUNTLV
+Test1,pw1,1,Teacher1,15
+Test2,pw2,2,Teacher2,16
+Test3,pw3,3,Teacher3,17

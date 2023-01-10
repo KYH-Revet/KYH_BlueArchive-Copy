@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using _Character;
-using CSVData;
 using System.Threading;
 
 public class User : MonoBehaviour
@@ -26,33 +24,43 @@ public class User : MonoBehaviour
     string path = "CSV/User";
 
     //User ID
-    public int uId { get { return user_Data.uId; } set { uId = value; } }
+    private int uId;
 
     //Unity Functions
     void Awake()
     {
         instance = this;
-        Read_User();
+        Debug_User(uData);
+        Login("Test3", "pw3");
+        Debug_User(uData);
         DontDestroyOnLoad(gameObject);
     }
 
-    //Class Function
-    bool Read_User()
+    //Class Functions
+    public bool Login(string id, string password)
     {
         List<Dictionary<string, object>> data = CSVReader.Read(path);
+        for (int i = 0; i < data.Count; i++)
+        {
+            if (data[i]["ID"].ToString() == id)
+            {
+                if (data[i]["PASSWORD"].ToString() == password)
+                {
+                    Debug.Log("로그인 성공 UID 배정 : " + data[i]["UID"].ToString());
+                    uId = (int)data[i]["UID"];
+                    return Read_User();
+                }
+            }
+        }
 
-        //Exception Handling
-        if (!ExceptionHandling_Read(data, uId)) return false;
-
-        uData.uId       = (int)data[uId]["UID"];
-        uData.nickname  = data[uId]["NICKNAME"].ToString();
-        uData.accountLv = (int)data[uId]["ACCOUNTLV"];
-        return true;
+        Debug.Log("등록되지 않은 ID 입니다.");
+        return false;
     }
     public CSVData.User Search_User(int uId)
     {
         List<Dictionary<string, object>> data = CSVReader.Read(path);
         CSVData.User uData = new CSVData.User();
+
         //Exception Handling
         if (!ExceptionHandling_Read(data, uId))
         {
@@ -60,10 +68,26 @@ public class User : MonoBehaviour
             return uData;
         }
 
-        uData.uId       = (int)data[uId]["UID"];
-        uData.nickname  = data[uId]["NICKNAME"].ToString();
-        uData.accountLv = (int)data[uId]["ACCOUNTLV"];
+        uData.uId = (int)data[uId - 1]["UID"];
+        uData.nickname = data[uId - 1]["NICKNAME"].ToString();
+        uData.accountLv = (int)data[uId - 1]["ACCOUNTLV"];
         return uData;
+    }
+
+    //CSV Functions
+    bool Read_User()
+    {
+        List<Dictionary<string, object>> data = CSVReader.Read(path);
+
+        int cur_id = uId - 1;   //UID = 1 ~, Save Index = 0 ~
+
+        //Exception Handling
+        if (!ExceptionHandling_Read(data, cur_id)) return false;
+
+        uData.uId = (int)data[cur_id]["UID"];
+        uData.nickname = data[cur_id]["NICKNAME"].ToString();
+        uData.accountLv = (int)data[cur_id]["ACCOUNTLV"];
+        return true;
     }
 
     //Exception Handling Functions
@@ -72,7 +96,7 @@ public class User : MonoBehaviour
         bool found = false;
         for (int i = 0; i < data.Count; i++)
             if ((int)data[i]["UID"] == uId) { found = true; break; }
-        
+
         if (!found) Debug.Log("등록되지 않은 User Id 입니다.");
         return found;
     }
