@@ -29,21 +29,26 @@ namespace CSVData
         public int cId;             //캐릭터 고유번호
         public int cLv;             //캐릭터 레벨
         public int cExp;            //캐릭터 경험치
-        
-        public User_Character(int uId, int cId, int cLv, int cExp)
+        public bool possesion;      //소유 여부
+        public int star;            //성급
+
+        public User_Character(int cId, int cLv, int cExp, bool possesion, int star) : this()
         {
             this.cId = cId;
             this.cLv = cLv;
             this.cExp = cExp;
+            this.possesion = possesion;
+            if(possesion)
+                this.star = star;
+            else
+                this.star = Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo[cId].star_Basic;
         }
-
-        //public int star;           //N성
     }
 
     public struct Character_Info
     {
         public string name;         //이름
-
+        public int star_Basic;      //기본 성급
         public Character_Stat stat; //스탯
 
         //Stage 

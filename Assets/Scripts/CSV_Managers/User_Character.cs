@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class User_Character : MonoBehaviour
@@ -21,13 +19,15 @@ public class User_Character : MonoBehaviour
     
     //File path
     string path = "CSV/User_Character/User_Character_"; //User_Character_N; N = UID
+    public string _path { get { return path; } }
+    //CSV File Keys
+    string[] keys = { "CID", "LV", "EXP", "POSSESION", "STAR" };
 
     //Unity Functions
     void Awake()
     {
         instance = this;
         uCharacters = new Dictionary<int, CSVData.User_Character>();
-        Read_User_Character();
         DontDestroyOnLoad(gameObject);
 
         //Debug_User_Character();
@@ -40,46 +40,83 @@ public class User_Character : MonoBehaviour
     }
 
     //CSV Functions
-    bool Read_User_Character()
+    public bool Read_User_Character()
     {
         List<Dictionary<string, object>> data = Read_Path();
         //Exception Handling
-        if (data.Count <= 0)
+        if (data == null || data.Count <= 0)
         {
             Debug.LogError("User_Character의 정보가 없습니다!");
             return false;
         }
 
-        int uId = User.Instance().user_Data.uId;
-        for (int i = 0; i < data.Count; i++)
+        for (int line = 0; line < data.Count; line++)
         {
-            int cId = (int)data[i]["CID"];
-            //Exception Handling
+            //Get Character Id in this line
+            int cId = (int)data[line]["CID"];
+
+            //Exception Handling (Current id is already included)
             if (uCharacters.ContainsKey(cId))   //Dictionary Key = 1 ~
             {
                 Debug.LogError("에러 위치 \"User_Character.Add()\", 이미 등록되어있는 cid 입니다.]///[등록되어있는 캐릭터] cid: " + cId + ", 이름: " + Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo[cId].name);
                 continue;
             }
+
+            //Character[cId]'s data
             CSVData.User_Character chaData = new CSVData.User_Character //CID = 1 ~, Data Index = 0 ~
                 (
-                    uId,
                     cId,
                     (int)data[cId - 1]["LV"],
-                    (int)data[cId - 1]["EXP"]
+                    (int)data[cId - 1]["EXP"],
+                    Convert.ToBoolean(data[cId - 1]["POSSESION"]),
+                    (int)data[cId - 1]["STAR"]
                 );
+            
             uCharacters.Add(cId, chaData);
         }
         return true;
     }
-    public void Write_User_Character()
-    {
-
-    }
     List<Dictionary<string, object>> Read_Path()
     {
+        //Exception Handling
+        if (User.Instance().user_Data.uId == -1)
+            return null;
+
+        //Return a data
         return CSVReader.Read(path + User.Instance().user_Data.uId.ToString());
     }
+    public bool Write_Add_User_Character(int uId)
+    {
+        //Exception Handling (already have file)
+        if (CSVReader.Read(path + uId.ToString()) != null)
+        {
+            Debug.Log("\"" + path + uId.ToString() + "\" 파일이 이미 존재합니다.");
+            return false;
+        }
 
+        //Set Keys
+        List<string[]> update = new List<string[]>() { keys };
+
+        //Set Values (all Character)
+        Dictionary_CharacterInfo dic_Character = Dictionary_CharacterInfo.Instance();
+        Debug.Log(dic_Character.dictionary_size);
+        for (int i = 0; i < dic_Character.dictionary_size; i++)
+        {
+            string[] values = new string[5];
+            values[0] = i.ToString();       //CID
+            values[1] = "1";                //Lv
+            values[2] = "0";                //EXP
+            values[3] = false.ToString();   //Possesion
+            values[4] = "3";                //Star
+            update.Add(values);
+        }
+        
+        //Write CSV File
+        CSVWriter.Write(path + uId.ToString(), update);
+
+        return true;
+    }
+    
     //Class Functions
     List<CSVData.User_Character> Search_Users_Each_Characters(int uId, List<int> cIds)
     {
@@ -87,7 +124,7 @@ public class User_Character : MonoBehaviour
         List<Dictionary<string, object>> data = CSVReader.Read(path + uId.ToString());
 
         //Exception Handling
-        if (data.Count <= 0)
+        if (data == null || data.Count <= 0)
         {
             Debug.LogError("User_Character의 정보가 없습니다!");
             return null;   //target_User_Character.Count <= 0
@@ -98,10 +135,10 @@ public class User_Character : MonoBehaviour
         //Get Characters
         for (int i = 0; i < cIds.Count; i++)
         {
-            int cur_cId = cIds[i];
+            int cId = cIds[i];
 
             //Exception Handling            
-            if (cur_cId <= 0 || (int)data[cur_cId - 1]["CID"] != cur_cId)   //CID : 1 ~, Data Index : 0 ~
+            if (cId <= 0 || (int)data[cId - 1]["CID"] != cId)   //CID : 1 ~, Data Index : 0 ~
             {
                 Debug.Log("존재하지 않는 Character ID입니다.");
                 continue;
@@ -109,10 +146,11 @@ public class User_Character : MonoBehaviour
 
             CSVData.User_Character chaData = new CSVData.User_Character //cIds[i] - 1;(CID : 1 ~, Data Index : 0 ~)
                 (
-                    uId,
-                    cur_cId,
-                    (int)data[cur_cId - 1]["LV"],
-                    (int)data[cur_cId - 1]["EXP"]
+                    cId,
+                    (int)data[cId - 1]["LV"],
+                    (int)data[cId - 1]["EXP"],
+                    (bool)data[cId - 1]["POSSESION"],
+                    (int)data[cId - 1]["STAR"]
                 );
 
             target_User_Character.Add(chaData);
@@ -197,6 +235,35 @@ public class User_Character : MonoBehaviour
             Dictionary<int, CSVData.Character_Info> newDictionary = Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo;
             Debug.Log("UID : " + uid + "\tCID : " + newUser[i].cId + "\tName : " + newDictionary[cIds[i]].name + "\t");
             //Dictionary_CharacterInfo.Instance().Debug_CharacterInfoInDictionary(newUser[i].uId);
+        }
+    }
+
+    //Add Key in CSV
+    void NewKey()
+    {
+        string[] newValue = new string[2];
+        newValue[0] = true.ToString();  //Possesion
+        newValue[1] = "3";              //Star
+
+        for(int file = 1; file < 100; file++)
+        {
+            //UID 1~N data
+            List<Dictionary<string, object>> data = CSVReader.Read(path + (file).ToString());
+            if(data == null || data.Count <= 0) { /*Debug.Log("데이터 없음");*/ continue; }
+
+            List<string[]> update = new List<string[]>() { keys };
+            for(int i = 0; i < data.Count; i++)
+            {
+                string[] values = new string[5];
+                values[0] = data[i][keys[0]].ToString();
+                values[1] = data[i][keys[1]].ToString();
+                values[2] = data[i][keys[2]].ToString();
+                values[3] = newValue[0];
+                values[4] = newValue[1];
+                update.Add(values);
+            }
+            string cur_path = path + file.ToString();
+            CSVWriter.Write(cur_path, update);
         }
     }
 }

@@ -15,6 +15,8 @@ public class CSVReader
         var list = new List<Dictionary<string, object>>();
         TextAsset data = Resources.Load(file) as TextAsset;
 
+        if(data == null) { /*Debug.LogError("파일이 존재하지 않습니다.");*/ return null; }
+
         var lines = Regex.Split(data.text, LINE_SPLIT_RE);
 
         if (lines.Length <= 1) return list;
