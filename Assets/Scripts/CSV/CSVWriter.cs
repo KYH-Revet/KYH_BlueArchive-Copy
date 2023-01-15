@@ -10,7 +10,6 @@ public class CSVWriter
 
     public static void Write(string path, List<string[]> data)
     {
-        Debug.Log("Wirte");
         //Set Path for write
         StreamWriter st_Writer = new StreamWriter(path_Resources + path + ".csv", false);
         for(int line = 0; line < data.Count; line++)

@@ -5,96 +5,48 @@ using UnityEditor;
 using UnityEngine;
 
 
-public class User : MonoBehaviour
+public class User
 {
-    //Singleton
-    static User instance;
-    public static User Instance()
-    {
-        if (instance == null)
-        {
-            Debug.Log("instance is null");
-            instance = new User();
-        }
-        return instance;
-    }
-
-    //User Data
-    CSVData.User uData;
-    public CSVData.User user_Data { get { return uData; } }
-    public void SetUID(int uId) { uData.uId = uId; }
     //File path
-    string path = "CSV/User";
-    public string _path { get { return path; } }
+    static string path = "CSV/User";
+    public static string _path { get { return path; } }
     //CSV File Keys
-    string[] keys = { "ID", "PASSWORD", "UID", "NICKNAME", "ACCOUNTLV" };
-
-    //Unity Functions
-    void Awake()
-    {
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    //Class Public Functions
+    static string[] keys = { "ID", "PASSWORD", "UID", "NICKNAME", "ACCOUNTLV" };
     
-    public CSVData.User Search_User(int uId)
+    //CSV Functions
+    public static CSVData.User Read_User(int uId)
     {
-        List<Dictionary<string, object>> data = CSVReader.Read(path);
+        //Variables for read user data
         CSVData.User uData = new CSVData.User();
+        uData.uId = -1;
 
-        //Exception Handling
-        if (!ExceptionHandling_Read(data, uId))
-        {
-            uData.uId = -1;
-            return uData;
-        }
+        //Read csv file
+        List<Dictionary<string, object>> data = CSVReader.Read(path);
+        if (data == null) return uData;
 
-        uData.uId = (int)data[uId - 1]["UID"];
-        uData.nickname = data[uId - 1]["NICKNAME"].ToString();
-        uData.accountLv = (int)data[uId - 1]["ACCOUNTLV"];
+        //Search user with user id
+        int user_Idx = uData.uId;
+        for (int i = 0; i < data.Count; i++)
+            if ((int)data[i]["UID"] == uId)
+                user_Idx = i;
+
+        //Not found user
+        if (user_Idx == -1) return uData;
+
+        //Input data without id, password
+        uData.id        =       data[user_Idx][keys[0]].ToString();
+        uData.password  =       data[user_Idx][keys[1]].ToString();
+        uData.uId       = (int) data[user_Idx][keys[2]];
+        uData.nickname  =       data[user_Idx][keys[3]].ToString();
+        uData.accountLv = (int) data[user_Idx][keys[4]];
         return uData;
     }
-    public void ChangeNickname(string nickname)
+    public static bool Write_Add_User(CSVData.User newUser)
     {
-        uData.nickname = nickname;
-        //Write
-    }
-
-    //Class Private Functions
-    string[] StringArr_NewUser(CSVData.User newUser)
-    {
-        string[] newData = new string[5];
-        
-        newData[0] = newUser.id;                     //Id
-        newData[1] = newUser.password;               //Password
-        newData[2] = newUser.uId.ToString();         //UId
-        newData[3] = newUser.nickname;               //Nickname
-        newData[4] = newUser.accountLv.ToString();   //AccountLv
-        
-        return newData;
-    }
-
-    //CSV Functions
-    public bool Read_User()
-    {
+        //Read file
         List<Dictionary<string, object>> data = CSVReader.Read(path);
+        if (data == null) return false;
 
-        int cur_id = uData.uId - 1;   //UID = 1 ~, Save Index = 0 ~
-
-        //Exception Handling
-        if (!ExceptionHandling_Read(data, cur_id)) return false;
-
-        uData.uId = (int)data[cur_id]["UID"];
-        uData.nickname = data[cur_id]["NICKNAME"].ToString();
-        uData.accountLv = (int)data[cur_id]["ACCOUNTLV"];
-
-        User_Character.Instance().Read_User_Character();
-
-        return true;
-    }
-    public bool Write_Add_User(List<Dictionary<string, object>> data, CSVData.User newUser)
-    {
         //Set Keys
         List<string[]> allData = new List<string[]>() { keys };
         
@@ -104,13 +56,12 @@ public class User : MonoBehaviour
             if (idx_Data >= data.Count)
             {
                 //New Data
-                allData.Add(StringArr_NewUser(newUser));
+                allData.Add(StringArr_User(newUser));
                 break;
             }
 
             //Old data
             string[] newData = new string[5];   //Id, Password, UId, Nickname, AccountLv
-            
             for(int idx_Keys = 0; idx_Keys < keys.Length; idx_Keys++)
                 newData[idx_Keys] = data[idx_Data][keys[idx_Keys]].ToString();
 
@@ -119,32 +70,63 @@ public class User : MonoBehaviour
         }
 
         //Create User_Character csv file
-        if (!User_Character.Instance().Write_Add_User_Character(newUser.uId))
+        if (!User_Character.Write_Add_User_Character(newUser.uId))
             return false;
 
         //Create User csv data
         CSVWriter.Write(path, allData);
         return true;
     }
-    public bool Write_Modify_User()
+    public static bool Write_Modify_User(CSVData.User modified_Data)
     {
+        //Read file
+        List<Dictionary<string, object>> data = CSVReader.Read(path);
+        if (data == null) { Debug.LogError("Write_Modify_User(), data is null"); return false; };
+
+        //Set Keys
+        List<string[]> allData = new List<string[]>() { keys };
+
+        //Set Values
+        for (int line = 0; line < data.Count; line++)
+        {
+            string[] newData = new string[5];   //Id, Password, UId, Nickname, AccountLv
+
+            if ((int)data[line]["UID"] == modified_Data.uId)   //Modify target
+            {
+                newData = StringArr_User(modified_Data);
+            }
+            else                                        //Old data
+            {
+                for (int idx_Keys = 0; idx_Keys < keys.Length; idx_Keys++)
+                    newData[idx_Keys] = data[line][keys[idx_Keys]].ToString();
+            }
+
+            //Add string[] data
+            allData.Add(newData);
+        }
+
+        //Modify csv file
+        CSVWriter.Write(path, allData);
         return true;
     }
 
-    //Exception Handling Functions
-    bool ExceptionHandling_Read(List<Dictionary<string, object>> data, int uId)
+    //Class Sub Functions
+    static string[] StringArr_User(CSVData.User newUser)
     {
-        bool found = false;
-        for (int i = 0; i < data.Count; i++)
-            if ((int)data[i]["UID"] == uId) { found = true; break; }
+        string[] newData = new string[keys.Length];
 
-        if (!found) Debug.Log("등록되지 않은 User Id 입니다.");
-        return found;
+        newData[0] = newUser.id;                     //Id
+        newData[1] = newUser.password;               //Password
+        newData[2] = newUser.uId.ToString();         //UId
+        newData[3] = newUser.nickname;               //Nickname
+        newData[4] = newUser.accountLv.ToString();   //AccountLv
+
+        return newData;
     }
-
     //Debug Functions
-    public void Debug_User(CSVData.User uData)
+    public static void Debug_User(CSVData.User uData)
     {
-        Debug.Log(uData.uId + "\t" + uData.nickname + "\t" + uData.accountLv);
+        Debug.Log("User]");
+        Debug.Log("uId : "+ uData.uId + "\tNickname : " + uData.nickname + "\tAccountLv : " + uData.accountLv);
     }
 }

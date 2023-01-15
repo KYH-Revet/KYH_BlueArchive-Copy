@@ -32,7 +32,7 @@ namespace CSVData
         public bool possesion;      //소유 여부
         public int star;            //성급
 
-        public User_Character(int cId, int cLv, int cExp, bool possesion, int star) : this()
+        public User_Character(int cId, int cLv, int cExp, bool possesion, int star)
         {
             this.cId = cId;
             this.cLv = cLv;

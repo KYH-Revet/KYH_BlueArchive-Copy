@@ -39,6 +39,7 @@ public class Dictionary_CharacterInfo : MonoBehaviour
         for (int i = 0; i < data.Count; i++)
         {
             int cid = (int)data[i]["CID"];
+
             //Exception Handling
             if (dic_Cha_Info.ContainsKey(cid))
             {
@@ -50,12 +51,13 @@ public class Dictionary_CharacterInfo : MonoBehaviour
             Character_Info curChaInfo = new Character_Info();
 
             //Name
-            curChaInfo.name = data[i]["NAME"].ToString();
-            
+            curChaInfo.name             = data[i]["NAME"].ToString();
+            curChaInfo.star_Basic       = (int)data[i]["STAR"];
+
             //Stage
-            curChaInfo.cityLv       = data[i]["CITYLV"].ToString();     //시가지 전투력
-            curChaInfo.outdoorLv    = data[i]["OUTDOORLV"].ToString();  //야외 전투력
-            curChaInfo.insideLv     = data[i]["INSIDELV"].ToString();   //실내 전투력
+            curChaInfo.cityLv           = data[i]["CITYLV"].ToString();     //시가지 전투력
+            curChaInfo.outdoorLv        = data[i]["OUTDOORLV"].ToString();  //야외 전투력
+            curChaInfo.insideLv         = data[i]["INSIDELV"].ToString();   //실내 전투력
 
             //Types
             curChaInfo.tClass           = (Type_Class)      Enum.Parse(typeof(Type_Class),          data[i]["CLASS"].ToString());
