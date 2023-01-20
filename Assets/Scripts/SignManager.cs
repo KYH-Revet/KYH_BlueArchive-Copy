@@ -75,6 +75,8 @@ public class SignManager : MonoBehaviour
 
         //Sign Up
         CSVData.User newUser = new CSVData.User(id, password, maxUId + 1, nickname);
+        Debug.Log("새로운 회원 정보]");
+        User.Debug_User(newUser);
 
         //Write
         User.Write_Add_User(newUser);
@@ -92,7 +94,7 @@ public class SignManager : MonoBehaviour
             {
                 if (data[i]["PASSWORD"].ToString() == password)
                 {
-                    //Debug.Log("로그인 성공 UID 배정 : " + data[i]["UID"].ToString());
+                    Debug.Log("로그인 성공 UID 배정 : " + data[i]["UID"].ToString());
                     uData = User.Read_User((int)data[i]["UID"]);                    //Read User data
                     uCharacters = User_Character.Read_User_Character(uData.uId);    //Read User Character datas
                     return true;
@@ -103,7 +105,6 @@ public class SignManager : MonoBehaviour
         Debug.Log("등록되지 않은 ID 입니다.");
         return false;
     }
-
 
     //Debug Functions
     void Debug_UserData()

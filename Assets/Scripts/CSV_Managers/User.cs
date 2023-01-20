@@ -75,6 +75,7 @@ public class User
 
         //Create User csv data
         CSVWriter.Write(path, allData);
+        Debug.Log("새로운 유저 추가 성공");
         return true;
     }
     public static bool Write_Modify_User(CSVData.User modified_Data)
@@ -128,5 +129,9 @@ public class User
     {
         Debug.Log("User]");
         Debug.Log("uId : "+ uData.uId + "\tNickname : " + uData.nickname + "\tAccountLv : " + uData.accountLv);
+    }
+    public static void Debug_User(int uId)
+    {
+        Debug_User(Read_User(uId));
     }
 }

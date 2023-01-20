@@ -65,7 +65,7 @@ public class User_Character
         for (int i = 0; i < dic_Character.dictionary_size; i++)
         {
             //Current charcater info
-            CSVData.Character_Info info = dic_Character.dictionary_CharacterInfo[i+1];
+            CSVData.Character_Info info = dic_Character.dictionary_CharacterInfo[i];
 
             string[] data = new string[5];
             data[0] = i.ToString();               //CID
@@ -78,10 +78,10 @@ public class User_Character
         
         //Write CSV File
         CSVWriter.Write(path + uId.ToString(), update);
-
+        Debug.Log("새로운 User_Character 작성 성공");
         return true;
     }
-    public static bool Write_Modify_User_Character(int uId, int cId, CSVData.User_Character modified_Data)
+    public static bool Write_Modify_User_Character(int uId, CSVData.User_Character modified_Data)
     {
         //current user's file path
         string cur_path = path + uId.ToString();
@@ -102,7 +102,7 @@ public class User_Character
         {
             string[] newData = new string[keys.Length];     //CID, LV, EXP, POSSESION, STAR
 
-            if ((int)data[line]["CID"] == cId)  //New Data
+            if ((int)data[line]["CID"] == modified_Data.cId)  //New Data
             {
                 newData = StringArr_User_Character(modified_Data);
             }
