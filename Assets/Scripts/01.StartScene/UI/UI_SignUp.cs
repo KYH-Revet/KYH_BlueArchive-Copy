@@ -90,6 +90,7 @@ public class UI_SignUp : MonoBehaviour
         SetId("");
         SetPassword("");
         SetNickName("");
+        debug_Text.text = "";
         gameObject.SetActive(false);
     }
 }
