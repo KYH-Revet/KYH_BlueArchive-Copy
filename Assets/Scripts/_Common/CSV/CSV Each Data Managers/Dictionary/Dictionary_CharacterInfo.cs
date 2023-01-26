@@ -27,12 +27,22 @@ public class Dictionary_CharacterInfo : MonoBehaviour
     {
         instance = this;
         dic_Cha_Info = new Dictionary<int, Character_Info>();
+        
+        //Load data
         Read_Character_Info();
+
+        //Completed load
+        if (dictionary_CharacterInfo.Count > 0)
+        {
+            Debug.Log("Complete Load");
+            DataInitialize.load_Dictionary_CharacterInfo = true;
+        }
+
         DontDestroyOnLoad(gameObject);
     }
 
     //Class Functions
-    public void Read_Character_Info()
+    void Read_Character_Info()
     {
         List<Dictionary<string, object>> data = CSVReader.Read(path);
         

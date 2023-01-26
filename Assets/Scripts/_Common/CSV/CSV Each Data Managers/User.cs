@@ -14,6 +14,11 @@ public class User
     static string[] keys = { "ID", "PASSWORD", "UID", "NICKNAME", "ACCOUNTLV" };
     
     //CSV Functions
+    /// <summary>
+    /// Read User csv data with UID (if UID is -1, it mean that reading data fails)
+    /// </summary>
+    /// <param name="uId"></param>
+    /// <returns></returns>
     public static CSVData.User Read_User(int uId)
     {
         //Variables for read user data
@@ -40,6 +45,26 @@ public class User
         uData.nickname  =       data[user_Idx][keys[3]].ToString();
         uData.accountLv = (int) data[user_Idx][keys[4]];
         return uData;
+    }
+    /// <summary>
+    /// It overlap return false, It not overlap return true
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public static bool IDOverlapCheck(string id)
+    {
+        Debug.Log("OverlapCheck] " + id);
+        //Read csv file
+        List<Dictionary<string, object>> data = CSVReader.Read(path);
+        if(data == null) { Debug.LogError("data is null!"); return false; }
+
+        for(int line = 0; line < data.Count; line++)
+        {
+            Debug.Log(data[line]["ID"].ToString() + " ?= " + id);
+            if (data[line]["ID"].ToString() == id)
+                return false;
+        }
+        return true;
     }
     public static bool Write_Add_User(CSVData.User newUser)
     {
