@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class SignManager : MonoBehaviour
 {
+    public bool AutoLogin;
     private void Awake()
     {
+        if (AutoLogin)
+            Login("Test1", "pw1");
         //Save this gameobject
         DontDestroyOnLoad(gameObject);
     }

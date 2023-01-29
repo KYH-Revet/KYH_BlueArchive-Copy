@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8117320434492344606}
   - component: {fileID: 8117320434492344600}
   - component: {fileID: 8117320434492344607}
-  - component: {fileID: 6827841585667656008}
+  - component: {fileID: 1955733466824220849}
   m_Layer: 5
   m_Name: Touch To Start
   m_TagString: Untagged
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.87058824}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &6827841585667656008
+--- !u!95 &1955733466824220849
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ Animator:
   m_GameObject: {fileID: 8117320434492344605}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48d164c8a8e0c3e42920a4ee4056a156, type: 2}
+  m_Controller: {fileID: 9100000, guid: a7567d8631600854abacbf10909e6630, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
