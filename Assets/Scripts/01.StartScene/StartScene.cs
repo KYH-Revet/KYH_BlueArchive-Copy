@@ -9,30 +9,31 @@ public class StartScene : MonoBehaviour
     public GameObject loginUI;
     public GameObject loadingUI;
     public GameObject touchToStartUI;
-
+    
     bool entryLoading = false;  //Scene loading start, this variable is for don't start again coroutine function
     bool endLoading = false;    //Load end(async.progress >= 0.9), show up the touchToStartUI
 
     private void Update()
     {
-        if (entryLoading)
-        {
-            Debug.Log("Entry Loading");
-            return;
-        }
+        //Start loading into the lobby scene
+        if (entryLoading) return;
 
         //Login complete start load scene
         if (DataInitialize.login)
         {
-            Debug.Log("Complete login] LobbyScene 로드");
+            //Debug.Log("Complete login] LobbyScene 로드");
+            //Login UI Off / Sign on of started load scene
             loginUI.SetActive(false);
-            StartCoroutine("Loading");
             entryLoading = true;
+
+            //Load Scene
+            //StartCoroutine("Loading");
+            SceneHistory.LoadScene(new SceneHistory.SceneName(SceneHistory.lobbyName, "로비"));
         }
     }
 
     //Button Functions
-    public void OnLoginUISetActive()
+    public void Btn_LoginUISetActive()
     {
         //It already activated
         if (loginUI.activeSelf) return;
