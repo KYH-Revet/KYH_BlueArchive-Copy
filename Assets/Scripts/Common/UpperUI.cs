@@ -6,23 +6,20 @@ using UnityEngine.UI;
 
 public class UpperUI : MonoBehaviour
 {
-    public Text txt_SceneName;
-    public Text txt_AP;
-    public Text txt_Credit;
-    public Text txt_Cash;
+    public Text text_AP;
+    public Text text_Credit;
+    public Text text_Cash;
 
     public static string sceneName = "";
 
     private void Awake()
     {
-        txt_SceneName.text = SceneHistory.history.Peek().sceneNameForUI;
-
         if (DataInitialize.login)
         {
-            CSVData.User user = SignManager.user_Data;        
-            txt_AP.text = SignManager.user_Data.ap.ToString();
-            txt_Credit.text = SignManager.user_Data.credit.ToString();
-            txt_Cash.text = SignManager.user_Data.cash.ToString();
+            CSVData.User user = SignManager.user_Data;
+            UIFunctions.UpdateText(text_AP,     user.ap.ToString());
+            UIFunctions.UpdateText(text_Credit, user.credit.ToString());
+            UIFunctions.UpdateText(text_Cash,   user.cash.ToString());
         }
     }
 
@@ -45,5 +42,5 @@ public class UpperUI : MonoBehaviour
     {
         foreach (Button btn in transform.GetComponentsInChildren<Button>())
             btn.interactable = false;
-    }    
+    }
 }

@@ -16,21 +16,8 @@ public class SceneHistory : MonoBehaviour
     public static string lobbyName { get { return lobby; } }
     public static string LoadingName { get { return loading; } }
 
-    //Scene Infomation Struct
-    [System.Serializable]
-    public struct SceneName
-    {
-        public string sceneName;
-        public string sceneNameForUI;
-        public SceneName(string sceneName, string sceneNameForUI)
-        {
-            this.sceneName = sceneName;
-            this.sceneNameForUI = sceneNameForUI;
-        }
-    }
-    
     //History of load scene
-    public static Stack<SceneName> history = new Stack<SceneName>();
+    public static Stack<string> history = new Stack<string>();
 
     //Unity Functions
     void Awake()
@@ -39,7 +26,7 @@ public class SceneHistory : MonoBehaviour
     }
 
     //Class Functions
-    public static void LoadScene(SceneName nextScene)
+    public static void LoadScene(string nextScene)
     {
         //Push data(next scene)
         history.Push(nextScene);
@@ -61,7 +48,7 @@ public class SceneHistory : MonoBehaviour
 
         LoadPeekScene();
     }
-    public static void LoadSceneWithLoadingScene(SceneName sceneName)
+    public static void LoadSceneWithLoadingScene(string sceneName)
     {
         history.Push(sceneName);
 
@@ -69,7 +56,7 @@ public class SceneHistory : MonoBehaviour
     }
     public static void LoadPeekScene()
     {
-        Fade(history.Peek().sceneName);
+        Fade(history.Peek());
     }
     private static void Fade(string name)
     {

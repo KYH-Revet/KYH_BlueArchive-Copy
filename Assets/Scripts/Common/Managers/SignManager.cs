@@ -11,7 +11,10 @@ public class SignManager : MonoBehaviour
     private void Awake()
     {
         if (AutoLogin)
+        {
             Login("Test1", "pw1");
+            Load_User_Character();
+        }
         //Save this gameobject
         DontDestroyOnLoad(gameObject);
     }
@@ -103,6 +106,18 @@ public class SignManager : MonoBehaviour
 
         Debug.Log("Complete Load : UID[" + SignManager.user_Data.uId + "] User_Character");
         return true;
+    }
+
+    public static bool Modyfy_Nickname(string nickname)
+    {
+        string origin_Nickname = uData.nickname;
+        uData.nickname = nickname;
+
+        if (User.Write_Modify_User(uData))
+            return true;
+
+        uData.nickname = origin_Nickname;
+        return false;
     }
 
     //Debug Functions

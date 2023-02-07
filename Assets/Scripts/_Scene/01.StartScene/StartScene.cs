@@ -28,7 +28,7 @@ public class StartScene : MonoBehaviour
 
             //Load Scene
             //StartCoroutine("Loading");
-            SceneHistory.LoadScene(new SceneHistory.SceneName(SceneHistory.lobbyName, "·Îºñ"));
+            SceneHistory.LoadScene(SceneHistory.lobbyName);
         }
     }
 

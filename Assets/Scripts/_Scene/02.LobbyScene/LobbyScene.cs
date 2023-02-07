@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,51 +18,39 @@ public class LobbyScene : MonoBehaviour
     public Text text_Credit;
     public Text text_Cash;
 
+    [Header("UnderLine - Text")]
+    public Text text_Time;
+
+    //Unity Functions
     void Awake()
     {
         //Account
         CSVData.User cur_User = SignManager.user_Data;
 
         //Account
-        UpdateText(text_Lv, cur_User.accountLv.ToString());
-        UpdateText(text_Nickname, cur_User.nickname.ToString());
-        UpdateText(text_Exp, cur_User.accountExp.ToString() + "/" + CalcMaxExp());
+        UIFunctions.UpdateText(text_Lv, cur_User.accountLv.ToString());
+        UIFunctions.UpdateText(text_Nickname, cur_User.nickname.ToString());
+        UIFunctions.UpdateText(text_Exp, cur_User.accountExp.ToString() + "/" + CalcMaxExp());
 
         //Money
-        UpdateText(text_AP, cur_User.ap + "/" + CalcMaxAP());
-        UpdateText(text_Credit, cur_User.credit);
-        UpdateText(text_Cash, cur_User.cash);
+        UIFunctions.UpdateText(text_AP, cur_User.ap + "/" + CalcMaxAP());
+        UIFunctions.UpdateText(text_Credit, cur_User.credit);
+        UIFunctions.UpdateText(text_Cash, cur_User.cash);
+    }
+
+    void Update()
+    {
+        UpdateTime();
     }
 
     //Class Functions
-    public void UpdateText(Text target, string value)       //Text Update
-    {
-        target.text = value;
-    }
-    public void UpdateText(Text target, int value)       //Text Update with comma
-    {
-        List<int> nums = new List<int>();
-        while(value > 0)
-        {
-            nums.Add(value % 10);
-            value /= 10;
-        }
-        string str = "";
-        
-        //Insert comma ','
-        for(int i = 1; i <= nums.Count ; i++)
-        {
-            //Index from back
-            str += nums[nums.Count - i].ToString();
-
-            //Comma
-            if(i % 3 == 0)
-                str += ",";
-        }
-    }
     public void UpdateSlider(Slider target, float value)    //Slider Update
     {
         target.value = value;
+    }
+    public void UpdateTime()
+    {
+        text_Time.text = DateTime.Now.ToString("tt hh : mm");
     }
     public string CalcMaxExp()
     {
