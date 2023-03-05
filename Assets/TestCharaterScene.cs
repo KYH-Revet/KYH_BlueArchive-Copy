@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class TestCharaterScene : MonoBehaviour
 {
     [Header("Test Character")]
-    public TestAnimCharacter testTarget;
+    public Transform testCharacterParent;
+    TestAnimCharacter testTarget;
     TestAnimCharacter.State state = TestAnimCharacter.State.IDLE;
 
     [Header("UI")]
@@ -17,10 +18,15 @@ public class TestCharaterScene : MonoBehaviour
 
     void Start()
     {
-        if(testTarget != null)
+        if(testCharacterParent != null)
         {
-            state = testTarget.state;
-            stateText.text = "State : " + state;
+            testTarget = testCharacterParent.GetChild(0).GetComponent<TestAnimCharacter>();
+
+            if(testTarget != null)
+            {
+                state = testTarget.state;
+                stateText.text = "State : " + state;
+            }
         }
     }
 
@@ -32,7 +38,7 @@ public class TestCharaterScene : MonoBehaviour
             Time.timeScale = timeScale;
         }
         
-        if(testTarget.state != state)
+        if(testTarget != null && testTarget.state != state)
         {
             state = testTarget.state;
             stateText.text = "State : " + state;

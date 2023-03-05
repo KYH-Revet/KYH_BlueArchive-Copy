@@ -16,11 +16,34 @@ namespace _Character
         public uint criticalLv;     //치명 수치
         public uint criticaldmg;    //치명 데미지
         public uint stabillty;      //안정 수치
-        public uint nomalRange;     //일반공격 사거리
+        public uint normalRange;     //일반공격 사거리
         public uint ccRimforce;     //군중제어 강화력
         public uint ccResistance;   //군중제어 저항력
-        public uint costRecovry;    //코스트 회복력
+        public uint costRecovery;    //코스트 회복력
         //public bool obscuration;    //엄폐 여부
+
+
+        public Character_Stat(uint maxHp, uint shield, uint damage, uint defensive, uint cure, uint hitRate,
+                                uint evasionLv, uint criticalLv, uint criticaldmg, uint stabillty, uint normalRange,
+                                uint ccRimforce, uint ccResistance, uint costRecovery)
+        {
+            //Battle
+            this.maxHp = maxHp;                 //최대 체력
+            this.shield = shield;               //쉴드
+            this.damage = damage;               //공격력
+            this.defensive = defensive;         //방어력
+            this.cure = cure;                   //치유력
+            this.hitRate =hitRate;              //명중력
+            this.evasionLv = evasionLv;         //회피 수치
+            this.criticalLv = criticalLv;       //치명 수치
+            this.criticaldmg = criticaldmg;     //치명 데미지
+            this.stabillty = stabillty;         //안정 수치
+            this.normalRange = normalRange;     //일반공격 사거리
+            this.ccRimforce = ccRimforce;       //군중제어 강화력
+            this.ccResistance = ccResistance;   //군중제어 저항력
+            this.costRecovery = costRecovery;   //코스트 회복력
+            //this.obscuration = obscuration;   //엄폐 여부
+        }
     }
 
     //Type Enum
@@ -59,5 +82,4 @@ namespace _Character
         RG,         //Rail Gun          (레일 건)
         RL          //Rocket Launcher   (로켓 런처)
     }
-
 }

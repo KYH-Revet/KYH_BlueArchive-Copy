@@ -156,8 +156,14 @@ public class TestAnimCharacter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            ChangeState(State.SKILL);
-            animator.SetTrigger("SKILL");
+            if (state == State.RELOAD)
+                state = State.SHOOT;
+
+            if (state != State.DEAD)
+            {
+                ChangeState(State.SKILL);
+                animator.SetTrigger("SKILL");
+            }
         }
     }
     void Changer_Dead()

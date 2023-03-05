@@ -109,6 +109,7 @@ namespace CSVData
     /// </summary>
     public struct Character_Info
     {
+        //Character infomation
         public string name;         //이름
         public int star_Basic;      //기본 성급
         public Character_Stat stat; //스탯
@@ -124,8 +125,6 @@ namespace CSVData
         public Type_Positioning tPositioning;
         public Type_Property tProperty_Att;
         public Type_Property tProperty_Def;
-
-        //public Sprite profileImg;   //2D Image
-        //public GameObject model;    //3D model
+        public Type_Weapon tWeapon;
     }
 }
