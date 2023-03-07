@@ -34,7 +34,7 @@ public class Dictionary_CharacterInfo : MonoBehaviour
         //Completed load
         if (dictionary_CharacterInfo.Count > 0)
         {
-            Debug.Log("Complete Load");
+            Debug.Log("Dictionary] Complete Load");
             DataInitialize.load_Dictionary_CharacterInfo = true;
         }
 
@@ -75,7 +75,7 @@ public class Dictionary_CharacterInfo : MonoBehaviour
             curChaInfo.tPositioning     = (Type_Positioning)Enum.Parse(typeof(Type_Positioning),    data[i]["POSITIONING"].ToString());
             curChaInfo.tProperty_Att    = (Type_Property)   Enum.Parse(typeof(Type_Property),       data[i]["PROPERTY_ATT"].ToString());
             curChaInfo.tProperty_Def    = (Type_Property)   Enum.Parse(typeof(Type_Property),       data[i]["PROPERTY_DEF"].ToString());
-
+            curChaInfo.tWeapon          = (Type_Weapon)     Enum.Parse(typeof(Type_Weapon),         data[i]["WEAPON"].ToString());
 
             //Add in dictionary
             dic_Cha_Info.Add((int)data[i]["CID"], curChaInfo);

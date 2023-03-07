@@ -1,5 +1,5 @@
-CID,NAME,STAR,CITYLV,OUTDOORLV,INSIDELV,CLASS,ROLE,POSITIONING,PROPERTY_ATT,PROPERTY_DEF
-0,이오리,3,A,B,C,Striker,DPS,Front,Penetrate,Explosion
-1,하루나,3,S,C,B,Striker,DPS,Back,Explosion,Mystery
-2,히비키,3,D,A,A,Striker,DPS,Middle,Mystery,Penetrate
-3,세리나,1,A,A,A,Special,Heal,Back,Mystery,Penetrate
+CID,NAME,STAR,CITYLV,OUTDOORLV,INSIDELV,CLASS,ROLE,POSITIONING,PROPERTY_ATT,PROPERTY_DEF,WEAPON
+0,이오리,3,A,B,C,Striker,DPS,Front,Penetrate,Explosion,SR
+1,하루나,3,S,C,B,Striker,DPS,Back,Explosion,Mystery,SR
+2,히비키,3,D,A,A,Striker,DPS,Middle,Mystery,Penetrate,GL
+3,세리나,1,A,A,A,Special,Heal,Back,Mystery,Penetrate,AR

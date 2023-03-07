@@ -85,7 +85,10 @@ namespace CSVData
             if(possesion)
                 this.star = star;
             else
-                this.star = Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo[cId].star_Basic;
+                if(Dictionary_CharacterInfo.Instance() != null)
+                    this.star = Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo[cId].star_Basic;
+                else
+                    this.star = 0;
         }
     }
 
@@ -107,24 +110,38 @@ namespace CSVData
     ///     tProperty_Def
     ///     </para>
     /// </summary>
+    [System.Serializable]
     public struct Character_Info
     {
         //Character infomation
+        [Header("Character Infomation")]
         public string name;         //이름
         public int star_Basic;      //기본 성급
+        [Header("Character Stat")]
         public Character_Stat stat; //스탯
 
-        //Stage 
+        //Stage
+        [Header("Character Stage (SS > S > A > B > C)")]
+        [Tooltip("시가지")]
         public string cityLv;       //시가지 전투력
+        [Tooltip("야외")]
         public string outdoorLv;    //야외 전투력
+        [Tooltip("실내")]
         public string insideLv;     //실내 전투력
 
         //Types
+        [Header("Character Types")]
+        [Tooltip("Class Type")]
         public Type_Class tClass;
+        [Tooltip("Role Type")]
         public Type_Role tRole;
+        [Tooltip("Positioning Type")]
         public Type_Positioning tPositioning;
+        [Tooltip("Attack Property Type")]
         public Type_Property tProperty_Att;
+        [Tooltip("Deffece Property Type")]
         public Type_Property tProperty_Def;
+        [Tooltip("Weapon Type")]
         public Type_Weapon tWeapon;
     }
 }

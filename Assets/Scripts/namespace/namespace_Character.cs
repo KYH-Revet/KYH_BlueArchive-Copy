@@ -3,33 +3,33 @@ using UnityEngine;
 namespace _Character
 {
     //Character    
+    [System.Serializable]
     public struct Character_Stat
     {
         //Battle
-        public uint maxHp;          //최대 체력
-        public uint shield;         //쉴드
-        public uint damage;         //공격력
-        public uint defensive;      //방어력
-        public uint cure;           //치유력
-        public uint hitRate;        //명중력
-        public uint evasionLv;      //회피 수치
-        public uint criticalLv;     //치명 수치
-        public uint criticaldmg;    //치명 데미지
-        public uint stabillty;      //안정 수치
-        public uint normalRange;     //일반공격 사거리
-        public uint ccRimforce;     //군중제어 강화력
-        public uint ccResistance;   //군중제어 저항력
-        public uint costRecovery;    //코스트 회복력
-        //public bool obscuration;    //엄폐 여부
+        public int maxHp;          //최대 체력
+        public int damage;         //공격력
+        public int defensive;      //방어력
+        public int cure;           //치유력
+        public int hitRate;        //명중력
+        public int evasionLv;      //회피 수치
+        public int criticalLv;     //치명 수치
+        public int criticaldmg;    //치명 데미지
+        public int stabillty;      //안정 수치
+        public int normalRange;    //일반공격 사거리 (증가량 X)
+        public int ccRimforce;     //군중제어 강화력 (증가량 X)
+        public int ccResistance;   //군중제어 저항력 (증가량 X)
+        public int costRecovery;   //코스트 회복력 (증가량 X)
+        
+        //public bool obscuration;  //엄폐 여부 (증가량 X)
+        //public uint shield;         //쉴드 (증가량 X), 스킬로만 생길거니까 Stat에 없어도됨(스크립트에 따로 추가)
 
-
-        public Character_Stat(uint maxHp, uint shield, uint damage, uint defensive, uint cure, uint hitRate,
-                                uint evasionLv, uint criticalLv, uint criticaldmg, uint stabillty, uint normalRange,
-                                uint ccRimforce, uint ccResistance, uint costRecovery)
+        public Character_Stat(int maxHp, int damage, int defensive, int cure, int hitRate,
+                                int evasionLv, int criticalLv, int criticaldmg, int stabillty, int normalRange,
+                                int ccRimforce, int ccResistance, int costRecovery)
         {
             //Battle
-            this.maxHp = maxHp;                 //최대 체력
-            this.shield = shield;               //쉴드
+            this.maxHp = maxHp;                 //최대 체력            
             this.damage = damage;               //공격력
             this.defensive = defensive;         //방어력
             this.cure = cure;                   //치유력
@@ -43,6 +43,8 @@ namespace _Character
             this.ccResistance = ccResistance;   //군중제어 저항력
             this.costRecovery = costRecovery;   //코스트 회복력
             //this.obscuration = obscuration;   //엄폐 여부
+
+            //this.shield = shield;               //쉴드
         }
     }
 
