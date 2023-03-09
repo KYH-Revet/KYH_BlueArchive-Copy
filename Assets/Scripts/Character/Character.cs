@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
     protected Character_Stat stat { get { return characterInfo.stat; } }
 
     [Header("2D Images")]
-    //public Sprite sprite_FullBody;
+    public Sprite sprite_FullBody;
     public Sprite sprite_Profile;
 
     protected virtual void Start()
@@ -27,9 +27,9 @@ public class Character : MonoBehaviour
         LoadCharacterInfo();
     }
 
-    void LoadCharacterInfo()
+    protected virtual void LoadCharacterInfo()
     {
-        Debug.Log(DataInitialize.load_User_Character);
+        //Get Character Lv
         level = SignManager.user_Characters[cId].cLv;
         
         //Character_Info는 Dictionary_Character에 저장되어있는 고정 데이터에서 상당부분 가져올 수 있음
@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
         else
             Debug.Log("CID [" + cId + "] 불러오기 실패");
 
+        //Get Stat (With calculate by level)
         characterInfo.stat = Dictionary_CharacterStat.Instance().GetCharacterStat(cId, level);
     }
 }

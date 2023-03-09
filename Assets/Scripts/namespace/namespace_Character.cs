@@ -69,6 +69,7 @@ namespace _Character
     }
     public enum Type_Property       //공격/방어 속성
     {
+        Normal,     //노말(무상성)
         Explosion,  //폭발&경장갑
         Penetrate,  //관통&중장갑
         Mystery     //신비&특수장갑
