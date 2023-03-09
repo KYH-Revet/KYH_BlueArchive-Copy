@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Student : Character
+public class Character_Battle : Character
 {
     [Header("Variable for battle")]
     public uint maxAmmo = 10;

@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
     protected Character_Stat stat { get { return characterInfo.stat; } }
 
     [Header("2D Images")]
-    public Sprite sprite_FullBody;
+    //public Sprite sprite_FullBody;
     public Sprite sprite_Profile;
 
     protected virtual void Start()
@@ -27,7 +27,7 @@ public class Character : MonoBehaviour
         LoadCharacterInfo();
     }
 
-    protected virtual void LoadCharacterInfo()
+    void LoadCharacterInfo()
     {
         try
         {
@@ -42,9 +42,6 @@ public class Character : MonoBehaviour
         {
             Debug.Log(Dictionary_CharacterStat.Instance().GetCharacterStat(cId, level).maxHp);
             Debug.LogError("KeyNotFoundException : CID [" + cId + "] 불러오기 실패");
-            return;
         }
-
-        Debug.Log("CID [" + cId + "] 불러오기 성공");
     }
 }
