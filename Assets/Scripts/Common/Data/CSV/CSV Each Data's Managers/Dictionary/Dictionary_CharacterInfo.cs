@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CSVData;
 using _Character;
+using System.Security.Cryptography;
 
 public class Dictionary_CharacterInfo : MonoBehaviour
 {
@@ -44,42 +45,43 @@ public class Dictionary_CharacterInfo : MonoBehaviour
     //Class Functions
     void Read_Character_Info()
     {
+        //Read CSV File
         List<Dictionary<string, object>> data = CSVReader.Read(path);
         
         for (int i = 0; i < data.Count; i++)
         {
-            int cid = (int)data[i]["CID"];
+            int cId = (int)data[i]["CID"];
 
-            //Exception Handling
-            if (dic_Cha_Info.ContainsKey(cid))
+            try
             {
-                Debug.LogError("에러 위치 \"Dictionary_CharacterInfo.Add()\", 이미 등록되어있는 cid 입니다.]///[등록되어있는 캐릭터] cid: " + cid + ", 이름: " + dic_Cha_Info[cid].name);
-                continue;
+                //Add Infomation
+                Character_Info curChaInfo = new Character_Info();
+
+                //Name
+                curChaInfo.name         = data[i]["NAME"].ToString();
+                curChaInfo.star_Basic   = (int)data[i]["STAR"];
+
+                //Stage
+                curChaInfo.cityLv       = data[i]["CITYLV"].ToString();     //시가지 전투력
+                curChaInfo.outdoorLv    = data[i]["OUTDOORLV"].ToString();  //야외 전투력
+                curChaInfo.insideLv     = data[i]["INSIDELV"].ToString();   //실내 전투력
+
+                //Types
+                curChaInfo.tClass           = (Type_Class)Enum.Parse(typeof(Type_Class),                data[i]["CLASS"].ToString());
+                curChaInfo.tRole            = (Type_Role)Enum.Parse(typeof(Type_Role),                  data[i]["ROLE"].ToString());
+                curChaInfo.tPositioning     = (Type_Positioning)Enum.Parse(typeof(Type_Positioning),    data[i]["POSITIONING"].ToString());
+                curChaInfo.tProperty_Att    = (Type_Property)Enum.Parse(typeof(Type_Property),          data[i]["PROPERTY_ATT"].ToString());
+                curChaInfo.tProperty_Def    = (Type_Property)Enum.Parse(typeof(Type_Property),          data[i]["PROPERTY_DEF"].ToString());
+                curChaInfo.tWeapon          = (Type_Weapon)Enum.Parse(typeof(Type_Weapon),              data[i]["WEAPON"].ToString());
+
+                //Add in dictionary
+                dic_Cha_Info.Add(cId, curChaInfo);
+                dictionary_size++;
             }
-
-            //Add Infomation
-            Character_Info curChaInfo = new Character_Info();
-
-            //Name
-            curChaInfo.name             = data[i]["NAME"].ToString();
-            curChaInfo.star_Basic       = (int)data[i]["STAR"];
-
-            //Stage
-            curChaInfo.cityLv           = data[i]["CITYLV"].ToString();     //시가지 전투력
-            curChaInfo.outdoorLv        = data[i]["OUTDOORLV"].ToString();  //야외 전투력
-            curChaInfo.insideLv         = data[i]["INSIDELV"].ToString();   //실내 전투력
-
-            //Types
-            curChaInfo.tClass           = (Type_Class)      Enum.Parse(typeof(Type_Class),          data[i]["CLASS"].ToString());
-            curChaInfo.tRole            = (Type_Role)       Enum.Parse(typeof(Type_Role),           data[i]["ROLE"].ToString());
-            curChaInfo.tPositioning     = (Type_Positioning)Enum.Parse(typeof(Type_Positioning),    data[i]["POSITIONING"].ToString());
-            curChaInfo.tProperty_Att    = (Type_Property)   Enum.Parse(typeof(Type_Property),       data[i]["PROPERTY_ATT"].ToString());
-            curChaInfo.tProperty_Def    = (Type_Property)   Enum.Parse(typeof(Type_Property),       data[i]["PROPERTY_DEF"].ToString());
-            curChaInfo.tWeapon          = (Type_Weapon)     Enum.Parse(typeof(Type_Weapon),         data[i]["WEAPON"].ToString());
-
-            //Add in dictionary
-            dic_Cha_Info.Add((int)data[i]["CID"], curChaInfo);
-            dictionary_size++;
+            catch (ArgumentException)
+            {
+                Debug.LogError("에러 위치 \"Dictionary_Character_Info.Read_Character_Info()\", 이미 등록되어있는 cid 입니다.]///[등록되어있는 캐릭터] cid: " + cId);
+            }
         }
     }
 

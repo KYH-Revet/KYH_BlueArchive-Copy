@@ -29,16 +29,22 @@ public class Character : MonoBehaviour
 
     protected virtual void LoadCharacterInfo()
     {
-        //Get Character Lv
-        level = SignManager.user_Characters[cId].cLv;
-        
-        //Character_Info는 Dictionary_Character에 저장되어있는 고정 데이터에서 상당부분 가져올 수 있음
-        if (Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo.TryGetValue(cId, out characterInfo))
-            Debug.Log("CID [" + cId + "] 불러오기 성공");
-        else
-            Debug.Log("CID [" + cId + "] 불러오기 실패");
+        try
+        {
+            ////Get Character Lv
+            level = SignManager.user_Characters[cId].cLv;
+            ////Character_Info는 Dictionary_Character에 저장되어있는 고정 데이터에서 상당부분 가져올 수 있음
+            Dictionary_CharacterInfo.Instance().dictionary_CharacterInfo.TryGetValue(cId, out characterInfo);
+            //Get Stat (With calculate by level)
+            characterInfo.stat = Dictionary_CharacterStat.Instance().GetCharacterStat(cId, level);
+        }
+        catch (KeyNotFoundException)
+        {
+            Debug.Log(Dictionary_CharacterStat.Instance().GetCharacterStat(cId, level).maxHp);
+            Debug.LogError("KeyNotFoundException : CID [" + cId + "] 불러오기 실패");
+            return;
+        }
 
-        //Get Stat (With calculate by level)
-        characterInfo.stat = Dictionary_CharacterStat.Instance().GetCharacterStat(cId, level);
+        Debug.Log("CID [" + cId + "] 불러오기 성공");
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 using _Character;
-using System.Xml;
 
 namespace CSVData
 {
@@ -72,7 +70,7 @@ namespace CSVData
     {
         public int cId;             //캐릭터 고유번호
         public int cLv;             //캐릭터 레벨
-        public int cExp;            //캐릭터 경험치
+        public int cExp;            //캐릭터 경험치   
         public bool possesion;      //소유 여부
         public int star;            //성급
 
