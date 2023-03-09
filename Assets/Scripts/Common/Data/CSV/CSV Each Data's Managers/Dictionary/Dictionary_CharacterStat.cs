@@ -30,9 +30,10 @@ public class Dictionary_CharacterStat : MonoBehaviour
 
         public Dictionary_Stat(string path)
         {
-            this.dictionary_CharacterStat = new Dictionary<int, Character_Stat>();
             this.path = path;
-            this.size = 0;
+
+            dictionary_CharacterStat = new Dictionary<int, Character_Stat>();            
+            size = 0;
         }
     }
 
@@ -40,7 +41,7 @@ public class Dictionary_CharacterStat : MonoBehaviour
     public Dictionary_Stat dic_Stat         = new Dictionary_Stat("CSV/CharacterStat");
     public Dictionary_Stat dic_StatIncrease = new Dictionary_Stat("CSV/CharacterStatIncrease");
 
-    delegate Character_Stat Loading(int cId, List<Dictionary<string, object>> data);
+    delegate Character_Stat Loading(Dictionary<string, object> data);
 
     //Unity Functions
     void Awake()
@@ -78,7 +79,7 @@ public class Dictionary_CharacterStat : MonoBehaviour
             int cId = (int)data[i]["CID"];
             try
             {   //New Data
-                dictionary.dictionary.Add(cId, reading(cId, data));
+                dictionary.dictionary.Add(cId, reading(data[cId]));
                 dictionary.size++;
             }
             catch (ArgumentException)
@@ -89,38 +90,38 @@ public class Dictionary_CharacterStat : MonoBehaviour
     }
 
     //Delegate Loading(...) Fucntions
-    Character_Stat Loading_Character_Stat(int cId, List<Dictionary<string, object>> data)
+    Character_Stat Loading_Character_Stat(Dictionary<string, object> data)
     {
         //Add Infomation
         Character_Stat curChaStatIncrease = new Character_Stat();
 
         //Data
-        curChaStatIncrease.maxHp        = (int)data[cId]["MAXHP"];           //최대 생명력
-        curChaStatIncrease.damage       = (int)data[cId]["DAMAGE"];          //공격력
-        curChaStatIncrease.defensive    = (int)data[cId]["DEFENSIVE"];       //방어력
-        curChaStatIncrease.cure         = (int)data[cId]["CURE"];            //치유력
-        curChaStatIncrease.hitRate      = (int)data[cId]["HITRATE"];         //명중률
-        curChaStatIncrease.evasionLv    = (int)data[cId]["EVASIONLV"];       //회피 수치
-        curChaStatIncrease.criticalLv   = (int)data[cId]["CRITICALLV"];      //치명 수치
-        curChaStatIncrease.criticaldmg  = (int)data[cId]["CRITICALDMG"];     //치명 데미지
-        curChaStatIncrease.stabillty    = (int)data[cId]["STAILLTY"];        //안정성
-        curChaStatIncrease.ccRimforce   = (int)data[cId]["CCRIMFORCE"];      //군중제어력
-        curChaStatIncrease.ccResistance = (int)data[cId]["CCRESISTANCE"];    //군중제어 저항력
-        curChaStatIncrease.normalRange  = (int)data[cId]["NORMALRANGE"];     //일반공격 사거리
-        curChaStatIncrease.costRecovery = (int)data[cId]["COSTRECOVERY"];    //코스트 회복력
+        curChaStatIncrease.maxHp        = (int)data["MAXHP"];           //최대 생명력
+        curChaStatIncrease.damage       = (int)data["DAMAGE"];          //공격력
+        curChaStatIncrease.defensive    = (int)data["DEFENSIVE"];       //방어력
+        curChaStatIncrease.cure         = (int)data["CURE"];            //치유력
+        curChaStatIncrease.hitRate      = (int)data["HITRATE"];         //명중률
+        curChaStatIncrease.evasionLv    = (int)data["EVASIONLV"];       //회피 수치
+        curChaStatIncrease.criticalLv   = (int)data["CRITICALLV"];      //치명 수치
+        curChaStatIncrease.criticaldmg  = (int)data["CRITICALDMG"];     //치명 데미지
+        curChaStatIncrease.stabillty    = (int)data["STAILLTY"];        //안정성
+        curChaStatIncrease.ccRimforce   = (int)data["CCRIMFORCE"];      //군중제어력
+        curChaStatIncrease.ccResistance = (int)data["CCRESISTANCE"];    //군중제어 저항력
+        curChaStatIncrease.normalRange  = (int)data["NORMALRANGE"];     //일반공격 사거리
+        curChaStatIncrease.costRecovery = (int)data["COSTRECOVERY"];    //코스트 회복력
 
         return curChaStatIncrease;
     }
-    Character_Stat Loading_Character_StatIncrease(int cId, List<Dictionary<string, object>> data)
+    Character_Stat Loading_Character_StatIncrease(Dictionary<string, object> data)
     {
         //Add Infomation
         Character_Stat curChaStatIncrease = new Character_Stat();
 
         //Data
-        curChaStatIncrease.maxHp        = (int)data[cId]["MAXHP"];      //최대 생명력
-        curChaStatIncrease.damage       = (int)data[cId]["DAMAGE"];     //공격력
-        curChaStatIncrease.defensive    = (int)data[cId]["DEFENSIVE"];  //방어력
-        curChaStatIncrease.cure         = (int)data[cId]["CURE"];       //치유력
+        curChaStatIncrease.maxHp        = (int)data["MAXHP"];      //최대 생명력
+        curChaStatIncrease.damage       = (int)data["DAMAGE"];     //공격력
+        curChaStatIncrease.defensive    = (int)data["DEFENSIVE"];  //방어력
+        curChaStatIncrease.cure         = (int)data["CURE"];       //치유력
 
         return curChaStatIncrease;
     }
