@@ -2235,6 +2235,7 @@ Transform:
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &815355363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,6 +2261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLogin: 1
+=======
+>>>>>>> parent of 2a53b00 (Add 2D Sprite Images)
 =======
 >>>>>>> parent of 2a53b00 (Add 2D Sprite Images)
 --- !u!1 &831586632
