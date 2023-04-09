@@ -7,19 +7,19 @@ namespace _Character
     public struct Character_Stat
     {
         //Battle
-        public int maxHp;          //최대 체력
-        public int damage;         //공격력
-        public int defensive;      //방어력
-        public int cure;           //치유력
-        public int hitRate;        //명중력
-        public int evasionLv;      //회피 수치
-        public int criticalLv;     //치명 수치
-        public int criticaldmg;    //치명 데미지
-        public int stabillty;      //안정 수치
+        public int maxHp;          //최대 체력       (Lv당 증가량 O, 아이템에 의한 증가량 O)
+        public int damage;         //공격력          (Lv당 증가량 O, 아이템에 의한 증가량 O)
+        public int defensive;      //방어력          (Lv당 증가량 O, 아이템에 의한 증가량 O)
+        public int cure;           //치유력          (Lv당 증가량 O, 아이템에 의한 증가량 O)
+        public int hitRate;        //명중력          (아이템에 의한 증가량 O)
+        public int evasionLv;      //회피 수치       (아이템에 의한 증가량 O)
+        public int criticalLv;     //치명 수치       (아이템에 의한 증가량 O)
+        public int criticaldmg;    //치명 데미지     (아이템에 의한 증가량 O)
+        public int stabillty;      //안정 수치       (아이템에 의한 증가량 O)
         public int normalRange;    //일반공격 사거리 (증가량 X)
         public int ccRimforce;     //군중제어 강화력 (증가량 X)
         public int ccResistance;   //군중제어 저항력 (증가량 X)
-        public int costRecovery;   //코스트 회복력 (증가량 X)
+        public int costRecovery;   //코스트 회복력   (증가량 X)
         
         //public bool obscuration;  //엄폐 여부 (증가량 X)
         //public uint shield;         //쉴드 (증가량 X), 스킬로만 생길거니까 Stat에 없어도됨(스크립트에 따로 추가)

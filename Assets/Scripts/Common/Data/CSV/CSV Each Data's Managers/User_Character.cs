@@ -8,6 +8,9 @@ public class User_Character
     //File path
     static string path = "CSV/User_Character/User_Character_"; //User_Character_N; N = UID
     public static string _path { get { return path; } }
+    /// <summary> Ressources\Sprites\Character\"캐릭터이름"\"캐릭터이름 (type)", type = "profile" or "full"</summary>
+    public static string path_SpriteFolder = "Sprites/Character\\";
+
     //CSV File Keys
     static string[] keys = { "CID", "LV", "EXP", "POSSESION", "STAR" };
 
