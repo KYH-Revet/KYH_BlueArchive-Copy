@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3459028067
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: student
+      Dependencies: {}

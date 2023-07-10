@@ -1,0 +1,64 @@
+ManifestFileVersion: 0
+CRC: 122576094
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 08ad133920bf0d4780bae990dc52aa10
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 06622013f9f5e5660835d2916c239f7d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 102
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/Prefabs/Character/Character_4.prefab
+- Assets/Resources/Sprites/Character/Character3/Character3 (profile).png
+- Assets/Resources/Sprites/Character/Character4/Character4 (full).png
+- Assets/Resources/Prefabs/Character/Character_6.prefab
+- Assets/Resources/Prefabs/Character/Character_3.prefab
+- Assets/Resources/Sprites/Character/Character1/Character1 (profile).png
+- Assets/Resources/Prefabs/Character/Character_5.prefab
+- Assets/Resources/Sprites/Character/Character3/Character3 (full).png
+- Assets/Resources/Sprites/Character/Character4/Character4 (profile).png
+- Assets/Resources/Sprites/Character/Character2/Character2 (full).png
+- Assets/Resources/Prefabs/Character/Character_2.prefab
+- Assets/Resources/Sprites/Character/Character2/Character2 (profile).png
+- Assets/Resources/Sprites/Character/Character6/Character6 (profile).png
+- Assets/Resources/Sprites/Character/Character1/Character1 (full).png
+- Assets/Resources/Prefabs/Character/Character_1.prefab
+- Assets/Resources/Sprites/Character/Character6/Character6 (full).png
+- Assets/Resources/Sprites/Character/Character5/Character5 (full).png
+- Assets/Resources/Sprites/Character/Character5/Character5 (profile).png
+Dependencies: []

@@ -4,8 +4,7 @@ using UnityEngine;
 using CSVData;
 using _Character;
 using System;
-using System.Security.Cryptography;
-using UnityEditorInternal;
+
 
 public class Dictionary_CharacterStat : MonoBehaviour
 {

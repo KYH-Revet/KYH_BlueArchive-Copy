@@ -114,7 +114,7 @@ namespace CSVData
         //Character infomation
         [Header("Character Infomation")]
         public string name;         //이름
-        public int star_Basic;      //기본 성급
+        public int star_Basic;      //기본 성급 
         [Header("Character Stat")]
         public Character_Stat stat; //스탯
 

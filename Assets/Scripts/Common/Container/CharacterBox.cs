@@ -8,31 +8,37 @@ using UnityEngine.UI;
 
 public class CharacterBox : MonoBehaviour
 {
-    public Image img_Profile;
-    public Image img_AttProperty;
-    public Image img_RoleIcon;
     public Text text_CLv;
-    
-    public void SetCharacter(Character_Profile info)
+
+    public Image img_Profile;
+    public Image img_RoleIcon;
+
+    public Image img_AttProperty;
+
+    public void SetCharacter(int lv, Sprite profile, Type_Property type)
     {
         try
         {
             //Profile image
-            img_Profile.sprite = info.sprite_Profile;
+            img_Profile.sprite = profile;
 
             //Proerty color
-            switch (info.info.tProperty_Att)
+            Debug.Log("Attack Property = " + type.ToString());
+            switch (type)
             {
                 case Type_Property.Explosion:
                     //폭발
+                    Debug.Log("폭발");
                     img_AttProperty.color = Color.red;
                     break;
                 case Type_Property.Penetrate:
                     //관통
+                    Debug.Log("관통");
                     img_AttProperty.color = Color.yellow;
                     break;
                 case Type_Property.Mystery:
                     //신비
+                    Debug.Log("신비");
                     img_AttProperty.color = Color.cyan;
                     break;
             }
@@ -40,7 +46,8 @@ public class CharacterBox : MonoBehaviour
             //Role icon
 
             //Character level text
-            string lv = "Lv." + info.level.ToString();
+            string txt_lv = "Lv." + lv.ToString();
+            text_CLv.text = txt_lv;
         }
         catch(NullReferenceException)
         {

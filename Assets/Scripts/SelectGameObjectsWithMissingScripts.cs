@@ -1,41 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEditor;
+//using UnityEngine;
 
-public class SelectGameObjectsWithMissingScripts : Editor
-{
-    [MenuItem("smilejsu/Remove All Missing Script Components")]
-    private static void RemoveAllMissingScriptComponents()
-    {
+//public class SelectGameObjectsWithMissingScripts : Editor
+//{
+//    [MenuItem("smilejsu/Remove All Missing Script Components")]
+//    private static void RemoveAllMissingScriptComponents()
+//    {
 
-        Object[] deepSelectedObjects = EditorUtility.CollectDeepHierarchy(Selection.gameObjects);
+//        Object[] deepSelectedObjects = EditorUtility.CollectDeepHierarchy(Selection.gameObjects);
 
-        Debug.Log(deepSelectedObjects.Length);
+//        Debug.Log(deepSelectedObjects.Length);
 
-        int componentCount = 0;
-        int gameObjectCount = 0;
+//        int componentCount = 0;
+//        int gameObjectCount = 0;
 
-        foreach (Object obj in deepSelectedObjects)
-        {
-            if (obj is GameObject go)
-            {
-                int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(go);
+//        foreach (Object obj in deepSelectedObjects)
+//        {
+//            if (obj is GameObject go)
+//            {
+//                int count = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(go);
 
-                //Debug.LogFormat("<color=cyan>{0}</color>", count);
+//                //Debug.LogFormat("<color=cyan>{0}</color>", count);
 
-                if (count > 0)
-                {
-                    Undo.RegisterCompleteObjectUndo(go, "Remove Missing Scripts");
+//                if (count > 0)
+//                {
+//                    Undo.RegisterCompleteObjectUndo(go, "Remove Missing Scripts");
 
-                    GameObjectUtility.RemoveMonoBehavioursWithMissingScript(go);
+//                    GameObjectUtility.RemoveMonoBehavioursWithMissingScript(go);
 
-                    componentCount += count;
-                    gameObjectCount++;
-                }
+//                    componentCount += count;
+//                    gameObjectCount++;
+//                }
 
-            }
-        }
+//            }
+//        }
 
-    }
-}
+//    }
+//}
